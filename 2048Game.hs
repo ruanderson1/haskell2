@@ -43,3 +43,8 @@ emptyPlaces :: Board -> [(Int, Int)]
 emptyPlaces = concatMap (uncurry search).zip [0..3]
     where search line_index = zip(replicate 4 line_index).elemIndices 0
 
+-- retorna a posição atualizada
+updatePlace :: (Int, Int) -> Int -> Board -> Board
+updatePlace (line, column) value = updateIndex (updateIndex (const value) column) line
+    where updateIndex func index list = take index list ++ func (head $ drop index list) : tail (drop index list)
+
