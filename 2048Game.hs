@@ -17,12 +17,13 @@ slide_left = map slide_line
                 | x == y = (x + y) : slide_line xs ++ [0] -- Se os dois primeiros elementos forem iguais, combina-se esses dois elementos somando-os e adicionando o resultado ao início da lista resultante.
                 | otherwise = x : slide_line (y : xs) -- Se nenhum dos casos anteriores for verdadeiro, mantém-se o primeiro elemento e continua-se a deslizar a lista.
 
+-- desliza os elementos
 slide :: Direction -> Board -> Board
 slide Up_side = transpose.slide_left.transpose
 slide Left_side = map reverse.slide_left.map reverse
 slide Down_side = transpose.map reverse.slide_left.map reverse.transpose
 slide Right_side  = slide_left
 
-
+-- verifica se conseguiu vencer
 win :: Board -> Bool
 win x = any (elem 2048) x
